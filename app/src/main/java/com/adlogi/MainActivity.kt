@@ -1,24 +1,44 @@
 package com.adlogi
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-
+import com.adlogi.insights.RestClient
 import kotlinx.android.synthetic.main.activity_main.*
 
+
+
+
+
 class MainActivity : AppCompatActivity() {
+    val client = RestClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        
+        fab.setOnClickListener {
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            client.addParam("email", "Bhavsait@gmail.com")
+            client.addParam("password", "2dassaada3")
+            try {
+                val response =
+                    client.executePost() // In case your server sends any response back, it will be saved in this response string.
+Log.i("check post",response)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+
+
         }
+
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
